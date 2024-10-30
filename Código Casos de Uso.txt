@@ -1,0 +1,21 @@
+@startuml
+actor "Administrador" as Admin
+
+rectangle "Sistema de Gestión de Parqueadero" {
+    usecase "Registrar Matrícula" as UC1
+    usecase "Establecer Tarifas" as UC2
+    usecase "Generar Ticket de Entrada" as UC3
+    usecase "Generar Factura de Salida" as UC4
+    usecase "Registrar Vehículos Entrantes y Salientes" as UC5
+}
+
+Admin --> UC1 : Ingresar matrícula,\ntipo de vehículo,\nhora de ingreso
+Admin --> UC2 : Modificar,\nagregar o eliminar tarifas
+Admin --> UC3 : Imprimir ticket\nde entrada
+Admin --> UC4 : Imprimir factura\nde salida
+Admin --> UC5 : Consultar registro\nde vehículos
+
+UC1 --> UC3 : Generar ticket\tras registro
+UC4 --> UC5 : Actualizar registro\nde salida
+
+@enduml

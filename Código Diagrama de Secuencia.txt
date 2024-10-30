@@ -1,0 +1,13 @@
+@startuml
+actor "Administrador" as Admin
+participant "Parqueadero" as Parqueadero
+participant "Vehiculo" as Vehiculo
+participant "Ticket" as Ticket
+== Registro de Vehículo ==
+Admin -> Parqueadero : registrarVehiculo(matricula, tipo)
+Parqueadero -> Vehiculo : crearVehiculo(matricula, tipo)
+Parqueadero -> Vehiculo : setHoraIngreso(horaActual)
+Parqueadero -> Ticket : generarTicket(matricula, horaIngreso)
+Ticket -> Parqueadero : crearTicket(matricula, horaIngreso, codigoBarras)
+Parqueadero -> Admin : devolverTicket(ticket)
+@enduml

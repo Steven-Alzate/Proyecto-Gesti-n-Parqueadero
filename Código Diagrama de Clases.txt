@@ -1,0 +1,72 @@
+@startuml
+
+class "Parqueadero" {
+    +registrarVehiculo(matricula: String, tipo: String): void
+    +generarTicket(matricula: String, horaIngreso: Date): Ticket
+    +generarFactura(matricula: String, horaSalida: Date): Factura
+    +registrarSalida(matricula: String, horaSalida: Date): void
+}
+
+class "Vehiculo" {
+    -matricula: String
+    -tipo: String
+@startuml
+
+class "Parqueadero" {
+    +registrarVehiculo(matricula: String, tipo: String): void
+    +generarTicket(matricula: String, horaIngreso: Date): Ticket
+    +generarFactura(matricula: String, horaSalida: Date): Factura
+    +registrarSalida(matricula: String, horaSalida: Date): void
+}
+
+class "Vehiculo" {
+    -matricula: String
+    -tipo: String
+    -horaIngreso: Date
+    +getMatricula(): String
+    +getTipo(): String
+    +getHoraIngreso(): Date
+}
+
+class "Ticket" {
+    -matricula: String
+    -horaIngreso: Date
+    -codigoBarras: String
+    +imprimir(): void
+    +getCodigoBarras(): String
+}
+
+class "Factura" {
+    -matricula: String
+    -horaIngreso: Date
+    -horaSalida: Date
+    -tarifaAplicada: double
+    -totalAPagar: double
+    +imprimir(): void
+    +calcularTotal(): double
+}
+
+class "Tarifa" {
+    -tipoVehiculo: String
+    -monto: double
+    +getMonto(): double
+}
+
+class "Registro" {
+    -vehiculosEntrantes: List<Vehiculo>
+    -vehiculosSalientes: List<Vehiculo>
+    +consultarRegistro(): List<Vehiculo>
+    +agregarVehiculoEntrante(vehiculo: Vehiculo): void
+    +agregarVehiculoSaliente(vehiculo: Vehiculo): void
+}
+
+' Relaciones
+Parqueadero "1" --> "n" Vehiculo : maneja >
+Parqueadero "1" --> "n" Ticket : genera >
+Parqueadero "1" --> "n*" Factura : genera >
+Parqueadero "1" --> "n*" Tarifa : establece >
+Parqueadero "1" --> "n" Registro : mantiene >
+
+Registro "1" o-- "n" Vehiculo : contiene >
+
+@enduml
